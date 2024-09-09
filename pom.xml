@@ -12,6 +12,7 @@
         <module>BuildingProvider</module>
         <module>UnifiedGateway</module>
         <module>AllBuildingConsumer</module>
+        <module>SmokeAlarmProvider</module>
     </modules>
 
     <properties>

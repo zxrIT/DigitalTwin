@@ -16,3 +16,7 @@ spring:
           uri: lb://AllBuildingConsumer
           predicates:
             - Path= /api/rt/floor/**
+        - id: SmokeAlarmProvider
+          uri: lb://SmokeAlarmProvider
+          predicates:
+            - Path= /api/rt/smoke/**

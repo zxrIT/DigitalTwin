@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.TimeZone;
 
 @SuppressWarnings("all")
 @Service
@@ -79,7 +78,6 @@ public class BuildingServiceImpl implements BuildingService {
                 }
             }
         }
-        System.out.println(startTimer + ";" + endTimer + ";" + powerCount);
         for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
             System.out.println(formatter.format(roomPower.getTime()));
         }
