@@ -1,10 +1,9 @@
-package com.DigitalTwin.buildingProvider.dao.entity;
+package com.DigitalTwin.buildingProvider.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 @Data

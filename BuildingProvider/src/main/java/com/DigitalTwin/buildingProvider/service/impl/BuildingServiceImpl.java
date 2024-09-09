@@ -1,7 +1,7 @@
 package com.DigitalTwin.buildingProvider.service.impl;
 
-import com.DigitalTwin.buildingProvider.dao.entity.BuildingRoomPowerEntity;
-import com.DigitalTwin.buildingProvider.dao.mapper.BuildingRoomPowerMapper;
+import com.DigitalTwin.buildingProvider.entity.BuildingRoomPowerEntity;
+import com.DigitalTwin.buildingProvider.mapper.BuildingRoomPowerMapper;
 import com.DigitalTwin.buildingProvider.service.BuildingService;
 import com.DigitalTwin.buildingProvider.util.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.TimeZone;
 
 @SuppressWarnings("all")
 @Service
 public class BuildingServiceImpl implements BuildingService {
-    @Autowired
-    Timer timer;
 
     @Autowired
     Json json;
@@ -27,6 +30,10 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public String buildingSelectElectricityService(String building, String roomId, String range) {
         var formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startTimer = LocalDate.now().atStartOfDay();
+        LocalDateTime endTimer = LocalDateTime.now().with(LocalTime.MAX);
+        LocalDate nowTime = LocalDate.now();
+        LocalDate thirtyDaysAgoTime = nowTime.minus(30, ChronoUnit.DAYS);
         int powerCount = 0;
         List<BuildingRoomPowerEntity> roomPowerEntityList = null;
         if (!roomId.equals("all")) {
@@ -35,7 +42,7 @@ public class BuildingServiceImpl implements BuildingService {
                         ((new QueryWrapper<BuildingRoomPowerEntity>()))
                                 .eq("buildingId", building)
                                 .eq("roomId", roomId)
-                                .between("time", timer.getStartTimer(), timer.getEndTimer())
+                                .between("time", startTimer, endTimer)
                 );
                 for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                     powerCount += roomPower.getPower();
@@ -45,7 +52,7 @@ public class BuildingServiceImpl implements BuildingService {
                         ((new QueryWrapper<BuildingRoomPowerEntity>()))
                                 .eq("buildingId", building)
                                 .eq("roomId", roomId)
-                                .between("time", timer.getThirtyDaysAgoTime(), timer.getEndTimer())
+                                .between("time", thirtyDaysAgoTime, endTimer)
                 );
                 for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                     powerCount += roomPower.getPower();
@@ -56,7 +63,7 @@ public class BuildingServiceImpl implements BuildingService {
                 roomPowerEntityList = buildingRoomPowerMapper.selectList(
                         ((new QueryWrapper<BuildingRoomPowerEntity>()))
                                 .eq("buildingId", building)
-                                .between("time", timer.getStartTimer(), timer.getEndTimer())
+                                .between("time", startTimer, endTimer)
                 );
                 for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                     powerCount += roomPower.getPower();
@@ -65,12 +72,16 @@ public class BuildingServiceImpl implements BuildingService {
                 roomPowerEntityList = buildingRoomPowerMapper.selectList(
                         ((new QueryWrapper<BuildingRoomPowerEntity>()))
                                 .eq("buildingId", building)
-                                .between("time", timer.getThirtyDaysAgoTime(), timer.getEndTimer())
+                                .between("time", thirtyDaysAgoTime, endTimer)
                 );
                 for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                     powerCount += roomPower.getPower();
                 }
             }
+        }
+        System.out.println(startTimer + ";" + endTimer + ";" + powerCount);
+        for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
+            System.out.println(formatter.format(roomPower.getTime()));
         }
         return json.objectToJson(new ResponseConfig("⽤电量统计", building, roomId, range,
                 ResponseMessage.statusSuccess, ResponseMessage.messageSuccess,
@@ -82,6 +93,10 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public FeignResponse floorSelectElectricityService(String building, String range, String floor) {
         var formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startTimer = LocalDate.now().atStartOfDay();
+        LocalDateTime endTimer = LocalDateTime.now().with(LocalTime.MAX);
+        LocalDate nowTime = LocalDate.now();
+        LocalDate thirtyDaysAgoTime = nowTime.minus(30, ChronoUnit.DAYS);
         int powerCount = 0, proportion = 0;
         List<BuildingRoomPowerEntity> roomPowerEntityList = null;
         if (range.equals("1")) {
@@ -89,7 +104,7 @@ public class BuildingServiceImpl implements BuildingService {
                     ((new QueryWrapper<BuildingRoomPowerEntity>()))
                             .eq("buildingId", building)
                             .eq("floor", floor)
-                            .between("time", timer.getStartTimer(), timer.getEndTimer())
+                            .between("time", startTimer, endTimer)
             );
             for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                 powerCount += roomPower.getPower();
@@ -99,7 +114,7 @@ public class BuildingServiceImpl implements BuildingService {
                     ((new QueryWrapper<BuildingRoomPowerEntity>()))
                             .eq("buildingId", building)
                             .eq("floor", floor)
-                            .between("time", timer.getThirtyDaysAgoTime(), timer.getEndTimer())
+                            .between("time", thirtyDaysAgoTime, endTimer)
             );
             for (BuildingRoomPowerEntity roomPower : roomPowerEntityList) {
                 powerCount += roomPower.getPower();
