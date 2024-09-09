@@ -1,8 +1,0 @@
-server:
-  port: 8010
-spring:
-  application:
-    name: BuildingProvider
-  cloud:
-    nacos:
-      server-addr: localhost:8848

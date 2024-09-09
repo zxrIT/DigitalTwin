@@ -1,0 +1,13 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: BuildingProvider
+  datasource:
+      username: root
+      password: "root1234"
+      url: jdbc:mysql://127.0.0.1:3306/buildingPower?characterEncoding=UTF-8&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      server-addr: localhost:8848
