@@ -10,6 +10,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>BuildingProvider</module>
+        <module>UnifiedGateway</module>
+        <module>AllBuildingConsumer</module>
     </modules>
 
     <properties>

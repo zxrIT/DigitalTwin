@@ -8,13 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BuildingProvider" />
+        <module name="UnifiedGateway" />
+        <module name="AllBuildingConsumer" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AllBuildingConsumer" options="-parameters" />
       <module name="BuildingProvider" options="-parameters" />
       <module name="DigitalTwin" options="-parameters" />
+      <module name="UnifiedGateway" options="-parameters" />
     </option>
   </component>
 </project>

@@ -1,0 +1,18 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: Gateway
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: BuildingProvider
+          uri: lb://BuildingProvider
+          predicates:
+            - Path= /api/rt/building/**
+        - id: AllBuildingConsumer
+          uri: lb://AllBuildingConsumer
+          predicates:
+            - Path= /api/rt/floor/**

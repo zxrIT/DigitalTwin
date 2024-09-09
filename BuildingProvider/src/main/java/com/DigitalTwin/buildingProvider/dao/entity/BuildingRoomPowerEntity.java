@@ -15,6 +15,7 @@ public class BuildingRoomPowerEntity {
 
     @TableField("buildingId")
     private String buildingId;
+    private String floor;
 
     private int power;
     private Date time;

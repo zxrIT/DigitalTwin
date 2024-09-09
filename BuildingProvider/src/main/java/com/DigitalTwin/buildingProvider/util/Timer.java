@@ -3,7 +3,6 @@ package com.DigitalTwin.buildingProvider.util;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,8 +20,4 @@ public class Timer {
     private LocalDate thirtyDaysAgoTime = nowTime.minus(30, ChronoUnit.DAYS);
 
 
-    public String getCurrTimer() {
-        var formatter = new SimpleDateFormat("y-M-d H:m:s");
-        return formatter.format(currentTimer);
-    }
 }

@@ -3,6 +3,8 @@ package com.DigitalTwin.buildingProvider.util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -20,5 +22,5 @@ public class ResponseConfig {
     private String range;
     private String status;
     private String msg;
-    private data responseData;
+    private data data;
 }
