@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: VisitorFlowRateProvider
+  datasource:
+    username: root
+    password: "root1234"
+    url: jdbc:mysql://127.0.0.1:3306/visitorFlowRate?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
       server-addr: localhost:8848
