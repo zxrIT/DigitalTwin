@@ -27,6 +27,6 @@ spring:
         - id: EnvironmentProvider
           uri: lb://EnvironmentProvider
           predicates:
-            - Path= /api/rt/environment/**
+            - Path=/api/rt/environment/**
 
 

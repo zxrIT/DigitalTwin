@@ -36,7 +36,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
         Date databaseNewTimer = null;
         /** @description argument1 range=-1 , timeCache为缓冲时间单位分钟 */
         List<EnvironmentEntity> environmentEntitiesNow = new ArrayList<>();
-        LocalDateTime timeCache = now.minus(300, ChronoUnit.MINUTES);
+        LocalDateTime timeCache = now.minus(1, ChronoUnit.MINUTES);
         /** @description argument1 end */
         /** @description argument2 range=range*/
         LocalDateTime rangeMinutesAgo = now.minus(Integer.valueOf(range), ChronoUnit.MINUTES);
@@ -77,11 +77,23 @@ public class EnvironmentServiceImpl implements EnvironmentService {
                         .eq("roomId", roomId)
                         .between("time", timeCache, now)
                         .orderByDesc("time"));
-                for (EnvironmentEntity environmentEntity : environmentEntityList) {
-                    System.out.println(environmentEntity);
-                }
+                databaseNewTimer = environmentEntityList.get(0).getTime();
+                temperatureResponse = environmentEntityList.get(0).getTemperature();
+                humidityResponse = environmentEntityList.get(0).getHumidity();
             } else {
-
+                List<EnvironmentEntity> environmentEntityList =
+                        environmentMapper.selectList(new QueryWrapper<EnvironmentEntity>()
+                                .eq("buildingId", buildingId)
+                                .eq("roomId", roomId)
+                                .between("time", rangeMinutesAgo, now)
+                                .orderByDesc("time"));
+                databaseNewTimer = environmentEntityList.get(0).getTime();
+                for (EnvironmentEntity environmentEntity : environmentEntityList) {
+                    countTemperature += environmentEntity.getTemperature();
+                    countHumidity += environmentEntity.getHumidity();
+                }
+                temperatureResponse = countTemperature / environmentEntityList.size();
+                humidityResponse = countHumidity / environmentEntityList.size();
             }
         }
         return Json.objectToJson(new ResponseConfig("温湿度", buildingId,
