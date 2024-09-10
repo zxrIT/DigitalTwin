@@ -24,4 +24,9 @@ spring:
           uri: lb://VisitorFlowRateProvider
           predicates:
             - Path= /api/rt/visitorFlowRate/**
+        - id: EnvironmentProvider
+          uri: lb://EnvironmentProvider
+          predicates:
+            - Path= /api/rt/environment/**
+
 

@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="EnvironmentProvider" />
         <module name="SmokeAlarmProvider" />
         <module name="VisitorFlowRateProvider" />
         <module name="BuildingProvider" />
@@ -25,6 +26,7 @@
       <module name="BuildingProvider" options="-parameters" />
       <module name="DigitalTwin" options="" />
       <module name="DigitalTwinCommon" options="-parameters" />
+      <module name="EnvironmentProvider" options="-parameters" />
       <module name="SmokeAlarmProvider" options="-parameters" />
       <module name="UnifiedGateway" options="-parameters" />
       <module name="VisitorFlowRateProvider" options="-parameters" />

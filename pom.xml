@@ -14,6 +14,7 @@
         <module>AllBuildingConsumer</module>
         <module>SmokeAlarmProvider</module>
         <module>VisitorFlowRateProvider</module>
+        <module>EnvironmentProvider</module>
     </modules>
 
     <properties>
