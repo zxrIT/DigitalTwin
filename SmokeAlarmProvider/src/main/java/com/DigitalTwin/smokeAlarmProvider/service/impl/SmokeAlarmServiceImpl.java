@@ -34,11 +34,11 @@ public class SmokeAlarmServiceImpl implements SmokeAlarmService {
         var formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime thirtyMinutesAgo = now.minus(30, ChronoUnit.MINUTES);
-        System.out.println(thirtyMinutesAgo + ";" + now);
         List<SmokeAlarmEntity> smokeAlarmList =
                 smokeAlarmMapper.selectList(new QueryWrapper<SmokeAlarmEntity>()
                         .eq("buildingId", buildingId)
-                        .between("time", thirtyMinutesAgo, now));
+                        .between("time", thirtyMinutesAgo, now)
+                        .orderByAsc("time"));
         for (SmokeAlarmEntity smokeAlarmEntity : smokeAlarmList) {
             if (!smokeAlarmMap.containsKey(smokeAlarmEntity.getRoomId())) {
                 smokeAlarmMap.put(smokeAlarmEntity.getRoomId(), new ArrayList<>());
@@ -48,7 +48,6 @@ public class SmokeAlarmServiceImpl implements SmokeAlarmService {
             }
         }
         smokeAlarmMap.forEach((key, value) -> {
-            System.out.println(value);
             boolean triggered = false;
             String alarmSensorId = null;
             String roomId = null;

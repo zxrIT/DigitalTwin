@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SmokeAlarmProvider" />
+        <module name="VisitorFlowRateProvider" />
         <module name="BuildingProvider" />
         <module name="AllBuildingConsumer" />
         <module name="UnifiedGateway" />
@@ -26,6 +27,7 @@
       <module name="DigitalTwinCommon" options="-parameters" />
       <module name="SmokeAlarmProvider" options="-parameters" />
       <module name="UnifiedGateway" options="-parameters" />
+      <module name="VisitorFlowRateProvider" options="-parameters" />
       <module name="demo" options="-parameters" />
     </option>
   </component>
