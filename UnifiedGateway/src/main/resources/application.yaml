@@ -20,3 +20,8 @@ spring:
           uri: lb://SmokeAlarmProvider
           predicates:
             - Path= /api/rt/smoke/**
+        - id: VisitorFlowRateProvider
+          uri: lb://VisitorFlowRateProvider
+          predicates:
+            - Path= /api/rt/visitorFlowRate/**
+
