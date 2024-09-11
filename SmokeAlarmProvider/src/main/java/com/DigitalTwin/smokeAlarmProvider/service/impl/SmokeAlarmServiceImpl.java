@@ -56,7 +56,7 @@ public class SmokeAlarmServiceImpl implements SmokeAlarmService {
                 alarmSensorId = smokeAlarmEntity.getAlarmSensorId();
                 roomId = smokeAlarmEntity.getRoomId();
                 time = formatter.format(smokeAlarmEntity.getTime());
-                triggered = smokeAlarmEntity.getTriggered() != 0;
+                triggered = triggered != true ? smokeAlarmEntity.getTriggered() != 0 : true;
             }
             responseData.add(new ResponseConfig.Data(alarmSensorId,
                     String.format("%s室烟雾报警器", roomId), roomId, triggered, time));
